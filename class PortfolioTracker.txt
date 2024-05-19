@@ -1,0 +1,41 @@
+class PortfolioTracker:
+    def __init__(self):
+        self.portfolio = {}
+
+    def add_stock(self, symbol, quantity):
+        if symbol in self.portfolio:
+            self.portfolio[symbol] += quantity
+        else:
+            self.portfolio[symbol] = quantity
+
+    def remove_stock(self, symbol, quantity):
+        if symbol in self.portfolio:
+            if self.portfolio[symbol] >= quantity:
+                self.portfolio[symbol] -= quantity
+                if self.portfolio[symbol] == 0:
+                    del self.portfolio[symbol]
+            else:
+                print("Error: Insufficient quantity of", symbol)
+        else:
+            print("Error: Stock", symbol, "not found in portfolio")
+
+    def display_portfolio(self):
+        print("Portfolio:")
+        for symbol, quantity in self.portfolio.items():
+            print(symbol, ":", quantity)
+
+
+# Example usage:
+tracker = PortfolioTracker()
+tracker.add_stock("INTL", 10)
+tracker.add_stock("AMG", 5)
+tracker.add_stock("TCS", 8)
+
+tracker.display_portfolio()
+
+tracker.remove_stock("INTL", 3)
+tracker.remove_stock("TCS", 6)  # Attempting to remove more than available
+tracker.remove_stock("AMG", 2)  # Attempting to remove a non-existing stock
+
+tracker.display_portfolio()
+
